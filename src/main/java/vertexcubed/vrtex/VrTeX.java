@@ -23,7 +23,7 @@ public class VrTeX {
     }
 
     public VrTeX(IEventBus modEventBus, ModContainer modContainer) {
-
+        VrTeXConfig.Client.register(modContainer);
     }
 
 

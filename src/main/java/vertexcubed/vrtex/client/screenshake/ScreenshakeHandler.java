@@ -5,6 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.levelgen.synth.PerlinNoise;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
+import vertexcubed.vrtex.VrTeXConfig;
 
 import java.util.ArrayList;
 
@@ -35,7 +36,7 @@ public class ScreenshakeHandler {
 
     public static void onClientTick(ClientTickEvent event) {
         Camera camera = Minecraft.getInstance().gameRenderer.getMainCamera();
-        float globalScreenshakeModifier = 1.0f;
+        float globalScreenshakeModifier = (float) VrTeXConfig.Client.globalScreenshakeScale;
 
 
         xRotPower = 0.0f;
