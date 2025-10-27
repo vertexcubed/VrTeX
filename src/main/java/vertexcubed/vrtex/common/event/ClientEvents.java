@@ -1,19 +1,14 @@
 package vertexcubed.vrtex.common.event;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.world.item.Items;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.ScreenEvent;
 import net.neoforged.neoforge.client.event.ViewportEvent;
-import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
-import org.joml.Vector3f;
 import vertexcubed.vrtex.VrTeX;
 import vertexcubed.vrtex.client.screen.ScreenHelper;
-import vertexcubed.vrtex.client.screenshake.LocalScreenshake;
-import vertexcubed.vrtex.client.screenshake.PositionedScreenshake;
 import vertexcubed.vrtex.client.screenshake.ScreenshakeHandler;
 
 @EventBusSubscriber(modid = VrTeX.MOD_ID, value = Dist.CLIENT)

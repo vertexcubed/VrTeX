@@ -1,6 +1,9 @@
 package vertexcubed.vrtex.client.screenshake;
 
 import net.minecraft.client.Camera;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.Mth;
 
 /**
@@ -14,9 +17,17 @@ import net.minecraft.util.Mth;
  */
 public class LocalScreenshake extends ScreenshakeInstance {
 
-    private final float xRotPower;
-    private final float yRotPower;
-    private final float zRotPower;
+    public static final StreamCodec<FriendlyByteBuf, LocalScreenshake> CODEC = StreamCodec.composite(
+            ByteBufCodecs.VAR_INT, (localScreenshake -> localScreenshake.duration),
+            ByteBufCodecs.FLOAT, (localScreenshake -> localScreenshake.xRotPower),
+            ByteBufCodecs.FLOAT, (localScreenshake -> localScreenshake.yRotPower),
+            ByteBufCodecs.FLOAT, (localScreenshake -> localScreenshake.zRotPower),
+            LocalScreenshake::new
+    );
+
+    protected final float xRotPower;
+    protected final float yRotPower;
+    protected final float zRotPower;
 
     /**
      * @param duration  The time in ticks this screenshake lasts

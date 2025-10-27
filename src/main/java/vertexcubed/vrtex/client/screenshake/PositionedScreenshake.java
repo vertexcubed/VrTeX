@@ -1,10 +1,10 @@
 package vertexcubed.vrtex.client.screenshake;
 
 import net.minecraft.client.Camera;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import org.joml.Vector3f;
-
-import javax.annotation.Nonnull;
 
 
 /**
@@ -17,6 +17,16 @@ import javax.annotation.Nonnull;
  *
  */
 public class PositionedScreenshake extends LocalScreenshake {
+
+    public static final StreamCodec<FriendlyByteBuf, PositionedScreenshake> CODEC = StreamCodec.composite(
+            ByteBufCodecs.VAR_INT, shake -> shake.duration,
+            ByteBufCodecs.VECTOR3F, shake -> shake.pos,
+            // StreamCodec#composite supports up to 6 args so we're packing these in a Vector3f
+            ByteBufCodecs.VECTOR3F, shake -> new Vector3f(shake.xRotPower, shake.yRotPower, shake.zRotPower),
+            ByteBufCodecs.FLOAT, shake -> shake.falloffDistance,
+            ByteBufCodecs.FLOAT, shake -> shake.maxDistance,
+            (duration1, pos1, power, falloffDistance, maxDistance) -> new PositionedScreenshake(duration1, pos1, power.x, power.y, power.z).setFalloffDistance(falloffDistance).setMaxDistance(maxDistance)
+    );
 
     private float falloffDistance = 1.0f;
     private float maxDistance = 3.0f;
